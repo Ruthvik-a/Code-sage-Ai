@@ -1,6 +1,6 @@
 async function runCode() {
     let code = document.getElementById("codeInput").value;
-    let apiKey = "YOUR_OPENROUTER_API_KEY"; // Replace with your actual API key
+    let apiKey = "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"; // Replace with your actual API key
 
     let response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
