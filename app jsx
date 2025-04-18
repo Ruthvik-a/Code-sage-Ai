@@ -1,0 +1,28 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import Upload from './pages/Upload'
+import Explorer from './pages/Explorer'
+import Terminal from './pages/Terminal'
+import Settings from './pages/Settings'
+import Sidebar from './components/Sidebar'
+
+export default function App() {
+  return (
+    <Router>
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/explorer" element={<Explorer />} />
+            <Route path="/terminal" element={<Terminal />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  )
+}
