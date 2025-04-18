@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
+  const navigate = useNavigate()
 
   const handleAuth = async () => {
     try {
@@ -15,8 +17,9 @@ export default function Login() {
       } else {
         await signInWithEmailAndPassword(auth, email, password)
       }
+      navigate('/dashboard')  // Redirect to dashboard after successful login/sign-up
     } catch (err) {
-      setError('Authentication failed')
+      setError('Authentication failed. Please try again.')
     }
   }
 
