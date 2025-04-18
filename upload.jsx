@@ -1,19 +1,41 @@
+import { useState } from 'react'
+import { uploadFile } from '../firebase'
+
 export default function Upload() {
+  const [file, setFile] = useState(null)
+  const [isHidden, setIsHidden] = useState(false)
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0])
+  }
+
+  const handleUpload = async () => {
+    if (!file) return
+    await uploadFile(file, isHidden)
+  }
+
   return (
     <div className="min-h-screen bg-vault text-white flex flex-col items-center justify-center p-4">
       <h2 className="text-2xl font-bold mb-4">Secure Upload</h2>
-      <div className="w-full max-w-md bg-gray-900 p-4 rounded-xl shadow-lg space-y-4">
-        <input className="w-full p-2 bg-black rounded" placeholder="File Alias" />
-        <label className="flex items-center space-x-2">
-          <input type="checkbox" />
-          <span>Set to Hidden</span>
-        </label>
-        <input className="w-full p-2 bg-black rounded" placeholder="Metadata Tags" />
-        <div className="flex space-x-2 mt-4">
-          <button className="bg-neon text-black py-2 px-4 rounded">Upload & Encrypt</button>
-          <button className="border border-white py-2 px-4 rounded">Cancel</button>
-        </div>
-      </div>
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="mb-4"
+      />
+      <label className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={isHidden}
+          onChange={(e) => setIsHidden(e.target.checked)}
+        />
+        <span>Set to Hidden</span>
+      </label>
+      <button
+        onClick={handleUpload}
+        className="bg-neon text-black py-2 px-4 rounded mt-4"
+      >
+        Upload & Encrypt
+      </button>
     </div>
   )
 }
